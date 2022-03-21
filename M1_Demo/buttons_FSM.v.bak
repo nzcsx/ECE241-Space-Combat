@@ -1,0 +1,37 @@
+module buttons_FSM(clk, reset, key_pressed, enable);
+	input clk, reset, key_pressed;
+	output reg enable;
+	
+    reg [1:0] current_state, next_state; 
+	 
+	 localparam [1:0] start_state    = 2'd00,
+							wait_state     = 2'd01,
+							no_press_state = 2'd10;
+					 
+	always@(*)
+	begin
+		case(current_state)
+			no_press_state: next_state= key_pressed?start_state:no_press_state;
+			start_state:	next_state= wait_state;
+			wait_state: 	next_state= key_pressed?wait_state:no_press_state;
+		endcase
+	end
+	
+	always @(*)
+   begin: enable_signals
+		case(current_state)
+			no_press_state: enable = 0;
+			start_state:	 enable = 1;
+			wait_state: 	 enable = 0;
+		endcase
+	end
+	
+
+    always@(posedge clk)
+    begin: state_FFs
+        if(!reset)
+            current_state <= no_press_state;
+        else
+            current_state <= next_state;
+    end
+endmodule 

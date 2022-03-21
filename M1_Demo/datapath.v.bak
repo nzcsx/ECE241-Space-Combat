@@ -1,0 +1,165 @@
+module datapath (clk_50, resetn, key_pressed, keyboard_in, colour_in, colour_out, go_draw, go_wait, go_update, go_erase, done_draw, done_wait, done_update, x_out, y_out);
+	input clk_50;
+	input resetn;
+	input key_pressed;//newly declared
+	input go_draw;
+	input go_wait;
+	input go_update;
+	input go_erase;
+	input [7:0]keyboard_in; // newly declared
+	input [8:0]colour_in;
+	output [8:0]colour_out;
+	output done_draw;
+	output done_wait;
+	output reg done_update;//newly declared
+	output reg [7:0]x_out;
+	output reg [6:0]y_out;
+	
+	//because the key_pressed pulse is too short, make another variable?
+	reg will_update;
+	
+	//wait-block
+	reg [27:0]out=9999999;
+	always@(posedge clk_50)
+	begin
+		if(!resetn)
+			out<=9999999;
+		else if (go_wait)
+		begin
+			if(out[27:0]==28'd0)
+			begin
+				out<=9999999;
+				will_update=0;
+			end
+			else
+				out<=out-1;
+		end
+	end
+	assign done_wait = (out==28'd0) ? 1:0;
+	
+	
+	
+	//update-block
+	localparam Left=8'h1c,Right=8'h23;
+	reg [7:0] x_start=0;
+	always@(posedge clk_50)
+	begin
+		if (!resetn)
+				x_start=0;
+		else if (go_update & key_pressed)//what if when key_pressed, it's not in update state?
+		begin
+			if (keyboard_in == Left)
+				x_start=x_start-1;
+			else if (keyboard_in == Right)
+				x_start=x_start+1;
+			done_update=1;
+		end
+	end
+	
+	wire y_start=7'd80;
+	/*
+	//x_counter	
+	localparam x_min=0, x_max=156;
+	reg [7:0]x=0;
+	reg x_count_up=1;
+	reg x_count_down=0;
+	always@(posedge clk_50)
+		begin
+			if (!resetn)
+				x=0;
+			else
+				begin
+					if (go_update)
+						begin
+							if (x_count_up && x<x_max)
+								x=x+1;
+							if (x==x_max && !x_count_down)
+								begin 
+									x_count_up=0; 
+									x_count_down=1;
+									x=x+1;
+								end
+							if (x>x_min && x_count_down)
+								x=x-1;
+							if (x==x_min)
+								begin
+									x_count_down=0;
+									x_count_up=1;
+								end
+						end
+				end	
+		end
+
+	
+	//y_counter
+	localparam y_min=0, y_max=116;
+	reg [6:0]y=0;
+	reg y_count_up=1;
+	reg y_count_down=0;
+	always@(posedge clk_50)
+		begin
+			if (!resetn)
+				y=0;
+			else
+				begin
+				if (go_update)
+					begin
+						if (y_count_up && y<y_max)
+							y=y+1;
+						if (y==y_max && !y_count_down)
+							begin 
+								y_count_up=0; 
+								y_count_down=1;
+								y=y+1;
+							end
+						if (y>y_min && y_count_down)
+							y=y-1;
+						if (y==y_min)
+							begin
+								y_count_down=0;
+								y_count_up=1;
+							end
+					end
+				end	
+		end	
+	*/
+	
+	
+	//draw-block and erase-block
+	reg [4:0]temp;
+	always@(posedge clk_50)
+	begin
+		if(!go_draw)
+			begin
+				temp<=16;
+				x_out <= x_start;
+				y_out <= y_start;
+			end
+		else if (go_draw && !done_draw)
+			begin
+				if(temp!=0) temp <= temp-1;
+				x_out <= x_start + (temp-1)%4;
+				y_out <= y_start + (temp-1)/4;	
+			end
+		else if (go_erase)
+			begin
+				if(temp!=0) temp <= temp-1;
+				x_out <= x_start + (temp-1)%4;
+				y_out <= y_start + (temp-1)/4;
+			end
+	end	
+	
+	wire [8:0]bkgd_color;
+	wire [14:0]pixel_address;
+	assign pixel_address=y_out*15'd160+x_out;
+	newbk_ram m1(
+	.address(pixel_address),
+	.clock(clk_50),
+	.data(0),
+	.wren(0),
+	.q(bkgd_color));
+	assign colour_out = (go_erase || temp==16) ? bkgd_color : colour_in;
+	
+	assign done_draw=(temp==0);
+	
+endmodule

@@ -1,0 +1,5 @@
+Warning (10268): Verilog HDL information at PS2_FSM.v(32): always construct contains both blocking and non-blocking assignments File: //SRVD/Homes$/wangbox2/Desktop/M1_Demo/PS2_FSM.v Line: 32
+Warning (10268): Verilog HDL information at datapath.v(29): always construct contains both blocking and non-blocking assignments File: //SRVD/Homes$/wangbox2/Desktop/M1_Demo/datapath.v Line: 29
+Warning (10268): Verilog HDL information at datapath.v(65): always construct contains both blocking and non-blocking assignments File: //SRVD/Homes$/wangbox2/Desktop/M1_Demo/datapath.v Line: 65
+Warning (10268): Verilog HDL information at datapath.v(82): always construct contains both blocking and non-blocking assignments File: //SRVD/Homes$/wangbox2/Desktop/M1_Demo/datapath.v Line: 82
+Warning (10268): Verilog HDL information at buttons_FSM.v(33): always construct contains both blocking and non-blocking assignments File: //SRVD/Homes$/wangbox2/Desktop/M1_Demo/buttons_FSM.v Line: 33
