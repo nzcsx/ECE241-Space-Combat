@@ -7,10 +7,13 @@ Different from micro-processors, the inherent parallelism of FPGA provides it wi
 
 # Design
 ## Overall Structure
+![Overall](https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/_overall.png)
+*Fig 2.1.0 overall structure block diagram*
+
 The game takes four types of inputs. It takes PS2 keyboard as player1 input, game controller buttons as player2 input (Fig 2.1.1), KEY[3] as the “start game” feedback signal and KEY[0] as “reset game” signal. 
 
 FSM module stores and updates the current “game state”. That is to say stores ad updates whether the game is at starting screen, or drawing the sprite images, or erasing the sprite images, or waiting for the frame update, or that one character has won the game.
 
 Datapath and related modules implements the gameplay logics, computes and stores the game data. For gameplay logics, by taking the input from the players, it updates the moves states(which represents which moves the character is performing) and deducts health according to the moves states. For game data, it stores and updates the position of both characters and retrieve colour of the sprite image from On-Chip Memory to be drawn on the VGA display.
 
-![Overall](README_media/_overall.jpg)
+The game outputs health (in base 10) of both characters to HEX display, and outputs the updated corresponding starting page, sprite image, or winning page to the VGA.
