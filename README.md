@@ -9,8 +9,8 @@ Different from micro-processors, the inherent parallelism of FPGA provides it wi
 ## 2.1 Overall Structure
 
 <p align="center"> 
-  <img width="600" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/_overall.png" alt="Overall"> </p>
-  <t> Fig 2.1.0 overall structure block diagram </t>
+  <img width="600" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/_overall.png" alt="Overall">
+  Fig 2.1.0 overall structure block diagram
 </p>
 
 The game takes four types of inputs. It takes PS2 keyboard as player1 input, game controller buttons as player2 input (Fig 2.1.1), KEY[3] as the “start game” feedback signal and KEY[0] as “reset game” signal. 
@@ -22,11 +22,11 @@ Datapath and related modules implements the gameplay logics, computes and stores
 The game outputs health (in base 10) of both characters to HEX display, and outputs the updated corresponding starting page, sprite image, or winning page to the VGA.
 
 <p align="center"> 
-  <img width="500" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/controller.png" alt="Controller"> </p>
+  <img width="500" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/controller.png" alt="Controller">
   Fig 2.1.0 Custom-built game controller
 </p>
 
 <p align="center"> 
-  <img width="500" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/hex.png" alt="Hex Display"> </p>
+  <img width="500" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/hex.png" alt="Hex Display">
   Fig 2.1.2 HEX display
 </p>
