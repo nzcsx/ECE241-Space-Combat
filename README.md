@@ -19,3 +19,11 @@ FSM module stores and updates the current “game state”. That is to say store
 Datapath and related modules implements the gameplay logics, computes and stores the game data. For gameplay logics, by taking the input from the players, it updates the moves states(which represents which moves the character is performing) and deducts health according to the moves states. For game data, it stores and updates the position of both characters and retrieve colour of the sprite image from On-Chip Memory to be drawn on the VGA display.
 
 The game outputs health (in base 10) of both characters to HEX display, and outputs the updated corresponding starting page, sprite image, or winning page to the VGA.
+
+![Controller](https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/controller.png)
+
+<p align="center"> Fig 2.1.0 Custom-built game controller </p>
+
+![Hex Display](https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/hex.png)
+
+<p align="center"> Fig 2.1.2 HEX display </p>
