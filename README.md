@@ -31,7 +31,7 @@ The game outputs health (in base 10) of both characters to HEX display, and outp
   Fig 2.1.2 HEX display
 </p>
 
-## 2.2 Inputs
+## 2.2 User Inputs
 The keyboard operates in a different clock rate to CLOCK_50 and keeps sending signals during the time the key is pressed down. Therefore, in the top module file, an keyboard_FSM_alt is instantiated to take the original keyboard signal and to send out a one CLOCK_50 clock cycle of impulse signal per press-and-release. We use six keys for six types of input: A(move left), D(move right), W(fly), S(crouch), J(kick) and L(punch).
 
 Since the keyboard can only sense one key pressing and send one key signal at a time, in order to prevent interference between the inputs of two players, an additional game controller is designed as an input device independent of the keyboard. It has  six buttons for six types of input: move left, move right, jump, crouch, kick and punch.
