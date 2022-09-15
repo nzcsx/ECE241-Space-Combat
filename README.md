@@ -10,7 +10,7 @@ Different from micro-processors, the inherent parallelism of FPGA provides it wi
 
 <p align="center"> 
   <img width="600" src="https://github.com/nzcsx/ECE241_Space_Combat/blob/main/README_media/_overall.png" alt="Overall"> </p>
-  Fig 2.1.0 overall structure block diagram 
+  <t> Fig 2.1.0 overall structure block diagram </t>
 </p>
 
 The game takes four types of inputs. It takes PS2 keyboard as player1 input, game controller buttons as player2 input (Fig 2.1.1), KEY[3] as the “start game” feedback signal and KEY[0] as “reset game” signal. 
